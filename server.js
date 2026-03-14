@@ -10,7 +10,7 @@ const path    = require('path');
 const fs      = require('fs');
 
 const app  = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // ---------- MIDDLEWARES ----------
 app.use(cors());
@@ -185,3 +185,4 @@ app.listen(PORT, () => {
   console.log(`    DELETE /api/pedidos/:id`);
   console.log(`    GET    /api/stats\n`);
 });
+
