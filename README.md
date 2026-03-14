@@ -222,11 +222,37 @@ node server.js
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
+<p align="center">
+                
+</p>
+
+
+
+## 👨‍💻 Desenvolvimento
 
 <div align="center">
 
-Feito com ☕ e 🍕 por **Wanderson Farias**
+*Desenvolvido   com foco em clareza, funcionalidade e design profissional.*
 
-⭐ Se este projeto te ajudou, deixa uma estrela no repositório!
+
+<br/>
+
+<a href="https://github.com/wandersondfarias">
+  <img src="https://img.shields.io/badge/GitHub-wandersondfarias-181717?style=for-the-badge&logo=github&labelColor=0e1a14" />
+</a>
+&nbsp;
+<a href="https://www.linkedin.com/in/wandersonfariaswf/">
+  <img src="https://img.shields.io/badge/LinkedIn-Wanderson%20de%20Farias-0077B5?style=for-the-badge&logo=linkedin&labelColor=0e1a14" />
+</a>
+
+<br/><br/>
+
+<img src="https://img.shields.io/badge/Desenvolvido%20por-Wanderson%20de%20Farias-c9a84c?style=for-the-badge&labelColor=0e1a14" />
 
 </div>
+
+
+
+
+
+
