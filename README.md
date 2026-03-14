@@ -207,15 +207,6 @@ node server.js
 
 ---
 
-## 👨‍💻 Autor
-
-**Wanderson Farias**
-
-[![GitHub](https://img.shields.io/badge/GitHub-WandersondFarias-181717?style=for-the-badge&logo=github)](https://github.com/WandersondFarias)
-
-> Desenvolvedor Full Stack Sênior | Análise e Desenvolvimento de Sistemas | Pós-graduação em Engenharia de Software | Redes de Computadores
-
----
 
 ## 📄 Licença
 
