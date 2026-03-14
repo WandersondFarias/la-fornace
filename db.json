@@ -1,0 +1,49 @@
+{
+  "pedidos": [
+    {
+      "id": "#1001",
+      "criadoEm": "2026-03-14T02:29:31.860Z",
+      "status": "a_caminho",
+      "cliente": {
+        "nome": "wanderson farias",
+        "telefone": "34999798964",
+        "endereco": "Nair Borges Bento, 515",
+        "complemento": "casa"
+      },
+      "itens": [
+        {
+          "id": 1,
+          "nome": "Margherita D.O.P.",
+          "emoji": "🍕",
+          "preco": 72,
+          "qty": 1
+        },
+        {
+          "id": 2,
+          "nome": "Diavola Speciale",
+          "emoji": "🔥",
+          "preco": 84,
+          "qty": 1
+        }
+      ],
+      "pagamento": "Cartão de crédito",
+      "tipo": "entrega",
+      "observacoes": "não quero se bola ",
+      "subtotal": 156,
+      "frete": 6,
+      "desconto": 0,
+      "total": 162,
+      "historico": [
+        {
+          "status": "preparando",
+          "hora": "2026-03-14T02:29:31.860Z"
+        },
+        {
+          "status": "a_caminho",
+          "hora": "2026-03-14T02:30:15.305Z"
+        }
+      ]
+    }
+  ],
+  "contador": 1001
+}
