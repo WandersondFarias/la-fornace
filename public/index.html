@@ -1,559 +1,1748 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Fornace — Pizzaria Artesanal</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --cream:#FAF6EF; --dark:#1A1209; --red:#C8311A; --red-light:#E8442A;
-    --gold:#C9922A; --gold-light:#E8B04A; --charcoal:#2D2416; --muted:#7A6A54;
-    --border:rgba(201,146,42,0.2); --green:#4CAF7D; --blue:#87ADFA;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--cream);min-height:100vh;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Fornace — Pizzaria Artesanal</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FAF6EF;
+      --dark: #1A1209;
+      --red: #C8311A;
+      --red-light: #E8442A;
+      --gold: #C9922A;
+      --gold-light: #E8B04A;
+      --charcoal: #2D2416;
+      --muted: #7A6A54;
+      --border: rgba(201, 146, 42, 0.2);
+      --green: #4CAF7D;
+      --blue: #87ADFA;
+    }
 
-  /* NAV */
-  nav{position:sticky;top:0;z-index:100;background:rgba(26,18,9,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
-  .logo{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:1px;}
-  .logo span{color:var(--red);}
-  nav ul{list-style:none;display:flex;gap:2rem;}
-  nav ul li a{color:rgba(250,246,239,0.7);text-decoration:none;font-size:.875rem;font-weight:500;letter-spacing:.5px;text-transform:uppercase;transition:color .2s;cursor:pointer;}
-  nav ul li a:hover,nav ul li a.active{color:var(--gold);}
-  .nav-btn{background:var(--red);color:white;border:none;padding:8px 20px;border-radius:4px;font-size:.875rem;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;}
-  .nav-btn:hover{background:var(--red-light);}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* HERO */
-  .hero{min-height:calc(100vh - 64px);display:flex;align-items:center;background:linear-gradient(135deg,#1A1209 0%,#2D1A08 50%,#1A1209 100%);position:relative;overflow:hidden;padding:4rem 2rem;}
-  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(201,146,42,.08),transparent),radial-gradient(ellipse 40% 40% at 80% 70%,rgba(200,49,26,.07),transparent);}
-  .hero-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%;position:relative;}
-  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,146,42,.12);border:1px solid var(--border);padding:6px 16px;border-radius:2px;font-size:.75rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;}
-  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;line-height:1.05;margin-bottom:1.5rem;}
-  .hero h1 em{color:var(--gold);font-style:normal;}
-  .hero p{color:rgba(250,246,239,.65);font-size:1.05rem;line-height:1.7;margin-bottom:2.5rem;max-width:480px;}
-  .hero-cta{display:flex;gap:1rem;flex-wrap:wrap;}
-  .btn-primary{background:var(--red);color:white;border:none;padding:14px 32px;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit;border-radius:3px;transition:all .2s;}
-  .btn-primary:hover{background:var(--red-light);transform:translateY(-1px);}
-  .btn-outline{background:transparent;color:var(--gold);border:1px solid var(--gold);padding:14px 32px;font-size:1rem;font-weight:600;cursor:pointer;font-family:inherit;border-radius:3px;transition:all .2s;}
-  .btn-outline:hover{background:rgba(201,146,42,.1);transform:translateY(-1px);}
-  .hero-visual{display:flex;flex-direction:column;gap:1rem;}
-  .pizza-card-hero{background:rgba(255,253,248,.04);border:1px solid var(--border);border-radius:8px;padding:1.5rem;display:flex;align-items:center;gap:1rem;transition:all .3s;}
-  .pizza-card-hero:hover{background:rgba(255,253,248,.07);border-color:rgba(201,146,42,.4);}
-  .pizza-emoji{font-size:2.5rem;width:56px;text-align:center;}
-  .pizza-info h3{font-family:'Playfair Display',serif;font-size:1.1rem;}
-  .pizza-info p{font-size:.8rem;color:var(--muted);margin-top:2px;}
-  .pizza-price{margin-left:auto;font-size:1.1rem;font-weight:700;color:var(--gold);}
-  .stats-row{display:flex;gap:1rem;margin-top:.5rem;}
-  .stat{text-align:center;flex:1;background:rgba(201,146,42,.06);border:1px solid var(--border);border-radius:6px;padding:1rem;}
-  .stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--gold);}
-  .stat-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--cream);
+      min-height: 100vh;
+    }
 
-  /* SECTIONS */
-  section{padding:5rem 2rem;}
-  .section-wrap{max-width:1200px;margin:0 auto;}
-  .section-tag{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
-  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;line-height:1.2;margin-bottom:1rem;}
-  .section-sub{color:var(--muted);font-size:1rem;max-width:560px;line-height:1.7;margin-bottom:3rem;}
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26, 18, 9, 0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
 
-  /* MENU */
-  #sec-menu{background:#1D1409;}
-  .menu-tabs{display:flex;margin-bottom:2rem;border:1px solid var(--border);border-radius:4px;overflow:hidden;width:fit-content;}
-  .tab{padding:10px 24px;font-size:.875rem;font-weight:600;cursor:pointer;background:transparent;color:var(--muted);border:none;font-family:inherit;text-transform:uppercase;transition:all .2s;}
-  .tab:hover{color:var(--cream);}
-  .tab.active{background:var(--red);color:white;}
-  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;}
-  .menu-card{background:rgba(255,253,248,.03);border:1px solid var(--border);border-radius:8px;padding:1.5rem;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
-  .menu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold));transform:scaleX(0);transition:transform .3s;}
-  .menu-card:hover{background:rgba(255,253,248,.06);border-color:rgba(201,146,42,.35);transform:translateY(-2px);}
-  .menu-card:hover::before{transform:scaleX(1);}
-  .menu-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem;}
-  .menu-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;}
-  .menu-badge{background:rgba(200,49,26,.15);color:var(--red-light);border:1px solid rgba(200,49,26,.25);font-size:.65rem;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:2px;text-transform:uppercase;}
-  .menu-badge.gold{background:rgba(201,146,42,.12);color:var(--gold);border-color:rgba(201,146,42,.25);}
-  .menu-desc{color:var(--muted);font-size:.85rem;line-height:1.6;margin-bottom:1.25rem;}
-  .menu-footer{display:flex;align-items:center;justify-content:space-between;}
-  .menu-price{font-size:1.2rem;font-weight:700;color:var(--gold);}
-  .add-btn{background:var(--red);color:white;border:none;width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit;}
-  .add-btn:hover{background:var(--red-light);transform:scale(1.1);}
-  .menu-sizes{display:flex;gap:6px;margin-bottom:1rem;}
-  .size-tag{font-size:.7rem;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:3px 8px;border-radius:3px;}
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
 
-  /* PEDIDO */
-  #sec-pedido{background:#1A1209;}
-  .order-grid{display:grid;grid-template-columns:1fr 360px;gap:2rem;align-items:start;}
-  .cart-panel{background:rgba(255,253,248,.03);border:1px solid var(--border);border-radius:8px;padding:1.5rem;position:sticky;top:80px;}
-  .cart-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;}
-  .cart-count{background:var(--red);color:white;font-size:.7rem;font-weight:700;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
-  .cart-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);}
-  .cart-item:last-of-type{border-bottom:none;}
-  .cart-item-emoji{font-size:1.5rem;}
-  .cart-item-info{flex:1;}
-  .cart-item-name{font-size:.9rem;font-weight:600;}
-  .cart-item-price{font-size:.8rem;color:var(--muted);}
-  .cart-qty{display:flex;align-items:center;gap:8px;}
-  .qty-btn{background:transparent;border:1px solid var(--border);color:var(--cream);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:inherit;}
-  .qty-btn:hover{border-color:var(--gold);color:var(--gold);}
-  .qty-num{font-size:.9rem;font-weight:600;min-width:16px;text-align:center;}
-  .cart-total{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
-  .total-row{display:flex;justify-content:space-between;font-size:.875rem;color:var(--muted);margin-bottom:8px;}
-  .total-final{display:flex;justify-content:space-between;font-size:1.1rem;font-weight:700;color:var(--cream);margin-top:12px;}
-  .checkout-btn{width:100%;background:var(--red);color:white;border:none;padding:14px;font-size:1rem;font-weight:700;cursor:pointer;border-radius:4px;font-family:inherit;margin-top:1.25rem;transition:all .2s;}
-  .checkout-btn:hover{background:var(--red-light);}
-  .checkout-btn:disabled{background:var(--muted);cursor:not-allowed;}
-  .empty-cart{text-align:center;padding:2rem 0;color:var(--muted);font-size:.9rem;}
-  .empty-cart .ec-icon{font-size:2.5rem;margin-bottom:.75rem;display:block;}
+    .logo span {
+      color: var(--red);
+    }
 
-  /* FORM */
-  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
-  .form-group{display:flex;flex-direction:column;gap:6px;}
-  .form-group.full{grid-column:1/-1;}
-  label{font-size:.8rem;font-weight:600;letter-spacing:.5px;color:rgba(250,246,239,.6);text-transform:uppercase;}
-  input,select,textarea{background:rgba(255,255,255,.04);border:1px solid rgba(201,146,42,.2);color:var(--cream);padding:10px 14px;border-radius:4px;font-size:.9rem;font-family:inherit;transition:border .2s;outline:none;}
-  input::placeholder,textarea::placeholder{color:rgba(250,246,239,.25);}
-  input:focus,select:focus,textarea:focus{border-color:var(--gold);background:rgba(255,255,255,.06);}
-  select option{background:#2D1A08;}
-  textarea{resize:none;height:80px;}
-  .radio-group{display:flex;gap:1rem;}
-  .radio-opt{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:.875rem;color:var(--muted);}
-  .radio-opt input[type=radio]{accent-color:var(--red);width:16px;height:16px;}
-  .form-divider{grid-column:1/-1;border:none;border-top:1px solid var(--border);margin:.5rem 0;}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
 
-  /* =============================================
+    nav ul li a {
+      color: rgba(250, 246, 239, 0.7);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      transition: color .2s;
+      cursor: pointer;
+    }
+
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: var(--gold);
+    }
+
+    .nav-btn {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background .2s;
+    }
+
+    .nav-btn:hover {
+      background: var(--red-light);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #1A1209 0%, #2D1A08 50%, #1A1209 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201, 146, 42, .08), transparent), radial-gradient(ellipse 40% 40% at 80% 70%, rgba(200, 49, 26, .07), transparent);
+    }
+
+    .hero-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 146, 42, .12);
+      border: 1px solid var(--border);
+      padding: 6px 16px;
+      border-radius: 2px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .hero p {
+      color: rgba(250, 246, 239, .65);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 3px;
+      transition: all .2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--red-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 3px;
+      transition: all .2s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(201, 146, 42, .1);
+      transform: translateY(-1px);
+    }
+
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .pizza-card-hero {
+      background: rgba(255, 253, 248, .04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: all .3s;
+    }
+
+    .pizza-card-hero:hover {
+      background: rgba(255, 253, 248, .07);
+      border-color: rgba(201, 146, 42, .4);
+    }
+
+    .pizza-emoji {
+      font-size: 2.5rem;
+      width: 56px;
+      text-align: center;
+    }
+
+    .pizza-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+    }
+
+    .pizza-info p {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .pizza-price {
+      margin-left: auto;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 1rem;
+      margin-top: .5rem;
+    }
+
+    .stat {
+      text-align: center;
+      flex: 1;
+      background: rgba(201, 146, 42, .06);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: .7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: .75rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* MENU */
+    #sec-menu {
+      background: #1D1409;
+    }
+
+    .menu-tabs {
+      display: flex;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .tab {
+      padding: 10px 24px;
+      font-size: .875rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      font-family: inherit;
+      text-transform: uppercase;
+      transition: all .2s;
+    }
+
+    .tab:hover {
+      color: var(--cream);
+    }
+
+    .tab.active {
+      background: var(--red);
+      color: white;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .menu-card {
+      background: rgba(255, 253, 248, .03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      transform: scaleX(0);
+      transition: transform .3s;
+    }
+
+    .menu-card:hover {
+      background: rgba(255, 253, 248, .06);
+      border-color: rgba(201, 146, 42, .35);
+      transform: translateY(-2px);
+    }
+
+    .menu-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .menu-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: .75rem;
+    }
+
+    .menu-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .menu-badge {
+      background: rgba(200, 49, 26, .15);
+      color: var(--red-light);
+      border: 1px solid rgba(200, 49, 26, .25);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+
+    .menu-badge.gold {
+      background: rgba(201, 146, 42, .12);
+      color: var(--gold);
+      border-color: rgba(201, 146, 42, .25);
+    }
+
+    .menu-desc {
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+
+    .menu-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .menu-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .add-btn {
+      background: var(--red);
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      font-family: inherit;
+    }
+
+    .add-btn:hover {
+      background: var(--red-light);
+      transform: scale(1.1);
+    }
+
+    .menu-sizes {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .size-tag {
+      font-size: .7rem;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
+
+    /* PEDIDO */
+    #sec-pedido {
+      background: #1A1209;
+    }
+
+    .order-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .cart-panel {
+      background: rgba(255, 253, 248, .03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: sticky;
+      top: 80px;
+    }
+
+    .cart-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-count {
+      background: var(--red);
+      color: white;
+      font-size: .7rem;
+      font-weight: 700;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item:last-of-type {
+      border-bottom: none;
+    }
+
+    .cart-item-emoji {
+      font-size: 1.5rem;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-size: .9rem;
+      font-weight: 600;
+    }
+
+    .cart-item-price {
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    .cart-qty {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: .9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      font-family: inherit;
+    }
+
+    .qty-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .qty-num {
+      font-size: .9rem;
+      font-weight: 600;
+      min-width: 16px;
+      text-align: center;
+    }
+
+    .cart-total {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: .875rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .total-final {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-top: 12px;
+    }
+
+    .checkout-btn {
+      width: 100%;
+      background: var(--red);
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 4px;
+      font-family: inherit;
+      margin-top: 1.25rem;
+      transition: all .2s;
+    }
+
+    .checkout-btn:hover {
+      background: var(--red-light);
+    }
+
+    .checkout-btn:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .empty-cart .ec-icon {
+      font-size: 2.5rem;
+      margin-bottom: .75rem;
+      display: block;
+    }
+
+    /* FORM */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1/-1;
+    }
+
+    label {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .5px;
+      color: rgba(250, 246, 239, .6);
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    textarea {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(201, 146, 42, .2);
+      color: var(--cream);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: .9rem;
+      font-family: inherit;
+      transition: border .2s;
+      outline: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(250, 246, 239, .25);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, .06);
+    }
+
+    select option {
+      background: #2D1A08;
+    }
+
+    textarea {
+      resize: none;
+      height: 80px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .radio-opt {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: .875rem;
+      color: var(--muted);
+    }
+
+    .radio-opt input[type=radio] {
+      accent-color: var(--red);
+      width: 16px;
+      height: 16px;
+    }
+
+    .form-divider {
+      grid-column: 1/-1;
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: .5rem 0;
+    }
+
+    /* =============================================
      PÁGINA DE PEDIDOS
   ============================================= */
-  #sec-pedidos-lista{background:#1A1209;}
+    #sec-pedidos-lista {
+      background: #1A1209;
+    }
 
-  .pedidos-toolbar{
-    display:flex;align-items:center;gap:1rem;
-    margin-bottom:2rem;flex-wrap:wrap;
-  }
-  .search-input-wrap{position:relative;flex:1;min-width:200px;}
-  .search-input-wrap input{width:100%;padding-left:38px;}
-  .search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:1rem;pointer-events:none;}
-  .filter-tabs{display:flex;border:1px solid var(--border);border-radius:4px;overflow:hidden;}
-  .filter-tab{padding:9px 18px;font-size:.8rem;font-weight:600;cursor:pointer;background:transparent;color:var(--muted);border:none;font-family:inherit;text-transform:uppercase;letter-spacing:.5px;transition:all .2s;white-space:nowrap;}
-  .filter-tab:hover{color:var(--cream);}
-  .filter-tab.active{background:var(--gold);color:var(--dark);}
-  .btn-refresh{background:transparent;border:1px solid var(--border);color:var(--muted);padding:9px 16px;border-radius:4px;cursor:pointer;font-family:inherit;font-size:.8rem;font-weight:600;transition:all .2s;text-transform:uppercase;letter-spacing:.5px;}
-  .btn-refresh:hover{border-color:var(--gold);color:var(--gold);}
+    .pedidos-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
 
-  /* Cards de pedidos */
-  .pedidos-lista{display:flex;flex-direction:column;gap:1rem;}
-  .pedido-card{
-    background:rgba(255,253,248,.03);border:1px solid var(--border);
-    border-radius:8px;padding:1.5rem;transition:border-color .2s;
-  }
-  .pedido-card:hover{border-color:rgba(201,146,42,.35);}
-  .pedido-card-top{
-    display:flex;align-items:flex-start;gap:1rem;
-    margin-bottom:1rem;flex-wrap:wrap;
-  }
-  .pedido-id{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold);}
-  .pedido-hora{font-size:.8rem;color:var(--muted);margin-top:3px;}
-  .pedido-cliente{flex:1;}
-  .pedido-nome{font-size:1rem;font-weight:600;}
-  .pedido-tel{font-size:.8rem;color:var(--muted);margin-top:2px;}
-  .pedido-total-big{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--cream);margin-left:auto;}
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
 
-  .pedido-itens{
-    display:flex;gap:.5rem;flex-wrap:wrap;
-    margin-bottom:1rem;
-  }
-  .item-pill{
-    display:flex;align-items:center;gap:5px;
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
-    padding:4px 10px;border-radius:20px;font-size:.8rem;
-  }
-  .item-pill-qty{
-    background:var(--red);color:white;
-    width:18px;height:18px;border-radius:50%;
-    font-size:.65rem;font-weight:700;
-    display:flex;align-items:center;justify-content:center;
-  }
+    .search-input-wrap input {
+      width: 100%;
+      padding-left: 38px;
+    }
 
-  .pedido-card-footer{
-    display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
-    padding-top:1rem;border-top:1px solid var(--border);
-  }
-  .pedido-meta{font-size:.8rem;color:var(--muted);}
-  .pedido-meta strong{color:rgba(250,246,239,.8);}
-  .spacer{flex:1;}
-  .status-select{
-    background:transparent;border:1px solid var(--border);
-    color:var(--cream);padding:6px 12px;border-radius:4px;
-    font-size:.8rem;font-family:inherit;cursor:pointer;outline:none;
-    transition:border .2s;
-  }
-  .status-select:focus{border-color:var(--gold);}
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 1rem;
+      pointer-events: none;
+    }
 
-  /* Badges de status */
-  .badge{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;padding:4px 12px;border-radius:2px;text-transform:uppercase;letter-spacing:.5px;}
-  .badge::before{content:'';width:6px;height:6px;border-radius:50%;}
-  .badge-preparando{background:rgba(201,146,42,.15);color:var(--gold);border:1px solid rgba(201,146,42,.3);}
-  .badge-preparando::before{background:var(--gold);}
-  .badge-a_caminho{background:rgba(135,173,250,.12);color:var(--blue);border:1px solid rgba(135,173,250,.3);}
-  .badge-a_caminho::before{background:var(--blue);}
-  .badge-entregue{background:rgba(76,175,125,.12);color:var(--green);border:1px solid rgba(76,175,125,.3);}
-  .badge-entregue::before{background:var(--green);}
-  .badge-cancelado{background:rgba(200,49,26,.12);color:var(--red-light);border:1px solid rgba(200,49,26,.3);}
-  .badge-cancelado::before{background:var(--red-light);}
+    .filter-tabs {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
 
-  /* Vazio e loading */
-  .estado-vazio{text-align:center;padding:4rem 2rem;color:var(--muted);}
-  .estado-vazio .icon{font-size:3rem;margin-bottom:1rem;display:block;opacity:.5;}
-  .estado-vazio h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.5rem;color:rgba(250,246,239,.5);}
-  .spinner{display:inline-block;width:18px;height:18px;border:2px solid rgba(201,146,42,.3);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
-  @keyframes spin{to{transform:rotate(360deg);}}
+    .filter-tab {
+      padding: 9px 18px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      transition: all .2s;
+      white-space: nowrap;
+    }
 
-  /* Resumo numérico */
-  .pedidos-resumo{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;}
-  .resumo-card{flex:1;min-width:120px;background:rgba(255,253,248,.03);border:1px solid var(--border);border-radius:6px;padding:.875rem 1rem;}
-  .resumo-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold);}
-  .resumo-lbl{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+    .filter-tab:hover {
+      color: var(--cream);
+    }
 
-  /* DASHBOARD */
-  #sec-dash{background:#1D1409;}
-  .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:2rem;}
-  .kpi{background:rgba(255,253,248,.03);border:1px solid var(--border);border-radius:8px;padding:1.25rem;}
-  .kpi-label{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:.75rem;}
-  .kpi-value{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--cream);}
-  .kpi-delta{font-size:.75rem;margin-top:4px;}
-  .kpi-delta.up{color:var(--green);}
-  .kpi-delta.down{color:var(--red-light);}
-  .chart-row{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem;}
-  .chart-box{background:rgba(255,253,248,.03);border:1px solid var(--border);border-radius:8px;padding:1.5rem;}
-  .chart-label{font-size:.8rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem;}
-  .bars{display:flex;align-items:flex-end;gap:8px;height:140px;}
-  .bar-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;height:100%;}
-  .bar{width:100%;border-radius:2px 2px 0 0;min-height:4px;}
-  .bar.red{background:linear-gradient(180deg,var(--red),rgba(200,49,26,.5));}
-  .bar.gold{background:linear-gradient(180deg,var(--gold),rgba(201,146,42,.5));}
-  .bar-lbl{font-size:.65rem;color:var(--muted);}
-  .donut-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;}
-  .donut{position:relative;width:120px;height:120px;}
-  .donut svg{transform:rotate(-90deg);}
-  .donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .donut-pct{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--gold);}
-  .donut-sub{font-size:.65rem;color:var(--muted);text-align:center;}
-  .legend{display:flex;flex-direction:column;gap:6px;width:100%;}
-  .legend-item{display:flex;align-items:center;gap:8px;font-size:.78rem;}
-  .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-  .legend-lbl{color:var(--muted);flex:1;}
-  .legend-pct{font-weight:600;color:var(--cream);}
+    .filter-tab.active {
+      background: var(--gold);
+      color: var(--dark);
+    }
 
-  /* PAGES */
-  .page{display:none;}
-  .page.active{display:block;}
+    .btn-refresh {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 9px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: .8rem;
+      font-weight: 600;
+      transition: all .2s;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
 
-  /* TOAST */
-  .toast{position:fixed;bottom:2rem;right:2rem;z-index:999;background:var(--charcoal);border:1px solid var(--gold);padding:12px 20px;border-radius:6px;font-size:.875rem;display:flex;align-items:center;gap:10px;transform:translateY(80px);opacity:0;transition:all .35s;max-width:320px;}
-  .toast.show{transform:translateY(0);opacity:1;}
+    .btn-refresh:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
 
-  /* API STATUS */
-  .api-badge{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;padding:4px 10px;border-radius:20px;margin-left:auto;}
-  .api-badge.online{background:rgba(76,175,125,.12);color:var(--green);border:1px solid rgba(76,175,125,.25);}
-  .api-badge.offline{background:rgba(200,49,26,.12);color:var(--red-light);border:1px solid rgba(200,49,26,.25);}
-  .api-dot{width:6px;height:6px;border-radius:50%;}
-  .api-badge.online .api-dot{background:var(--green);}
-  .api-badge.offline .api-dot{background:var(--red-light);}
+    /* Cards de pedidos */
+    .pedidos-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-  @media(max-width:900px){
-    .hero-grid,.order-grid,.chart-row{grid-template-columns:1fr;}
-    .dash-grid{grid-template-columns:1fr 1fr;}
-    nav ul{display:none;}
-    .cart-panel{position:static;}
-  }
-  @media(max-width:480px){
-    .dash-grid{grid-template-columns:1fr;}
-    .form-grid{grid-template-columns:1fr;}
-    .form-group.full{grid-column:1;}
-  }
-</style>
+    .pedido-card {
+      background: rgba(255, 253, 248, .03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: border-color .2s;
+    }
+
+    .pedido-card:hover {
+      border-color: rgba(201, 146, 42, .35);
+    }
+
+    .pedido-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .pedido-id {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .pedido-hora {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .pedido-cliente {
+      flex: 1;
+    }
+
+    .pedido-nome {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .pedido-tel {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .pedido-total-big {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-left: auto;
+    }
+
+    .pedido-itens {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .item-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .07);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: .8rem;
+    }
+
+    .item-pill-qty {
+      background: var(--red);
+      color: white;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: .65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pedido-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .pedido-meta {
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    .pedido-meta strong {
+      color: rgba(250, 246, 239, .8);
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    .status-select {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--cream);
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: .8rem;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: border .2s;
+    }
+
+    .status-select:focus {
+      border-color: var(--gold);
+    }
+
+    /* Badges de status */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 2px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .badge-preparando {
+      background: rgba(201, 146, 42, .15);
+      color: var(--gold);
+      border: 1px solid rgba(201, 146, 42, .3);
+    }
+
+    .badge-preparando::before {
+      background: var(--gold);
+    }
+
+    .badge-a_caminho {
+      background: rgba(135, 173, 250, .12);
+      color: var(--blue);
+      border: 1px solid rgba(135, 173, 250, .3);
+    }
+
+    .badge-a_caminho::before {
+      background: var(--blue);
+    }
+
+    .badge-entregue {
+      background: rgba(76, 175, 125, .12);
+      color: var(--green);
+      border: 1px solid rgba(76, 175, 125, .3);
+    }
+
+    .badge-entregue::before {
+      background: var(--green);
+    }
+
+    .badge-cancelado {
+      background: rgba(200, 49, 26, .12);
+      color: var(--red-light);
+      border: 1px solid rgba(200, 49, 26, .3);
+    }
+
+    .badge-cancelado::before {
+      background: var(--red-light);
+    }
+
+    /* Vazio e loading */
+    .estado-vazio {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+
+    .estado-vazio .icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+      opacity: .5;
+    }
+
+    .estado-vazio h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: .5rem;
+      color: rgba(250, 246, 239, .5);
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(201, 146, 42, .3);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Resumo numérico */
+    .pedidos-resumo {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .resumo-card {
+      flex: 1;
+      min-width: 120px;
+      background: rgba(255, 253, 248, .03);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .875rem 1rem;
+    }
+
+    .resumo-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .resumo-lbl {
+      font-size: .7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* DASHBOARD */
+    #sec-dash {
+      background: #1D1409;
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .kpi {
+      background: rgba(255, 253, 248, .03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .kpi-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .75rem;
+    }
+
+    .kpi-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .kpi-delta {
+      font-size: .75rem;
+      margin-top: 4px;
+    }
+
+    .kpi-delta.up {
+      color: var(--green);
+    }
+
+    .kpi-delta.down {
+      color: var(--red-light);
+    }
+
+    .chart-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .chart-box {
+      background: rgba(255, 253, 248, .03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .chart-label {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      height: 140px;
+    }
+
+    .bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      height: 100%;
+    }
+
+    .bar {
+      width: 100%;
+      border-radius: 2px 2px 0 0;
+      min-height: 4px;
+    }
+
+    .bar.red {
+      background: linear-gradient(180deg, var(--red), rgba(200, 49, 26, .5));
+    }
+
+    .bar.gold {
+      background: linear-gradient(180deg, var(--gold), rgba(201, 146, 42, .5));
+    }
+
+    .bar-lbl {
+      font-size: .65rem;
+      color: var(--muted);
+    }
+
+    .donut-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .donut {
+      position: relative;
+      width: 120px;
+      height: 120px;
+    }
+
+    .donut svg {
+      transform: rotate(-90deg);
+    }
+
+    .donut-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .donut-pct {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .donut-sub {
+      font-size: .65rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+    }
+
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .legend-lbl {
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .legend-pct {
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    /* PAGES */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 999;
+      background: var(--charcoal);
+      border: 1px solid var(--gold);
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: .875rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .35s;
+      max-width: 320px;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* API STATUS */
+    .api-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .7rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-left: auto;
+    }
+
+    .api-badge.online {
+      background: rgba(76, 175, 125, .12);
+      color: var(--green);
+      border: 1px solid rgba(76, 175, 125, .25);
+    }
+
+    .api-badge.offline {
+      background: rgba(200, 49, 26, .12);
+      color: var(--red-light);
+      border: 1px solid rgba(200, 49, 26, .25);
+    }
+
+    .api-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .api-badge.online .api-dot {
+      background: var(--green);
+    }
+
+    .api-badge.offline .api-dot {
+      background: var(--red-light);
+    }
+
+    @media(max-width:900px) {
+
+      .hero-grid,
+      .order-grid,
+      .chart-row {
+        grid-template-columns: 1fr;
+      }
+
+      .dash-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .cart-panel {
+        position: static;
+      }
+    }
+
+    @media(max-width:480px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: 1;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="logo">La <span>Fornace</span></div>
-  <ul>
-    <li><a onclick="showPage('home')"    class="active" id="nav-home">Início</a></li>
-    <li><a onclick="showPage('menu')"    id="nav-menu">Cardápio</a></li>
-    <li><a onclick="showPage('pedido')"  id="nav-pedido">Fazer Pedido</a></li>
-    <li><a onclick="showPage('pedidos-lista')" id="nav-pedidos-lista">Meus Pedidos</a></li>
-    <li><a onclick="showPage('dash')"    id="nav-dash">Dashboard</a></li>
-  </ul>
-  <div style="display:flex;align-items:center;gap:.75rem">
-    <span class="api-badge offline" id="apiBadge">
-      <span class="api-dot"></span> API offline
-    </span>
-    <button class="nav-btn" onclick="showPage('pedido')">🛒 Pedir</button>
-  </div>
-</nav>
-
-<!-- ====== HOME ====== -->
-<div class="page active" id="page-home">
-  <div class="hero">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-badge">⭐ Eleita a melhor pizzaria 2024</div>
-        <h1>A Arte da Pizza <em>Napolitana</em> Verdadeira</h1>
-        <p>Massa fermentada por 48 horas, molho San Marzano importado e forno a lenha a 485°C.</p>
-        <div class="hero-cta">
-          <button class="btn-primary" onclick="showPage('pedido')">Fazer Pedido Online</button>
-          <button class="btn-outline"  onclick="showPage('menu')">Ver Cardápio</button>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="pizza-card-hero"><div class="pizza-emoji">🍕</div><div class="pizza-info"><h3>Margherita D.O.P.</h3><p>Tomate San Marzano · Mozzarella di bufala</p></div><div class="pizza-price">R$ 72</div></div>
-        <div class="pizza-card-hero"><div class="pizza-emoji">🔥</div><div class="pizza-info"><h3>Diavola Speciale</h3><p>Salame picante · Pepperoni · Pimenta</p></div><div class="pizza-price">R$ 84</div></div>
-        <div class="pizza-card-hero"><div class="pizza-emoji">🌿</div><div class="pizza-info"><h3>Funghi al Tartufo</h3><p>Cogumelos porcini · Óleo de trufas</p></div><div class="pizza-price">R$ 96</div></div>
-        <div class="stats-row">
-          <div class="stat"><div class="stat-num">4.9</div><div class="stat-label">Avaliação</div></div>
-          <div class="stat"><div class="stat-num">12k</div><div class="stat-label">Clientes</div></div>
-          <div class="stat"><div class="stat-num">18</div><div class="stat-label">Min entrega</div></div>
-        </div>
-      </div>
+  <nav>
+    <div class="logo">La <span>Fornace</span></div>
+    <ul>
+      <li><a onclick="showPage('home')" class="active" id="nav-home">Início</a></li>
+      <li><a onclick="showPage('menu')" id="nav-menu">Cardápio</a></li>
+      <li><a onclick="showPage('pedido')" id="nav-pedido">Fazer Pedido</a></li>
+      <li><a onclick="showPage('pedidos-lista')" id="nav-pedidos-lista">Meus Pedidos</a></li>
+      <li><a onclick="showPage('dash')" id="nav-dash">Dashboard</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:.75rem">
+      <span class="api-badge offline" id="apiBadge">
+        <span class="api-dot"></span> API offline
+      </span>
+      <button class="nav-btn" onclick="showPage('pedido')">🛒 Pedir</button>
     </div>
-  </div>
-</div>
+  </nav>
 
-<!-- ====== CARDÁPIO ====== -->
-<div class="page" id="page-menu">
-  <section id="sec-menu">
-    <div class="section-wrap">
-      <div class="section-tag">— Cardápio —</div>
-      <h2 class="section-title">Nossas Criações</h2>
-      <p class="section-sub">Toda pizza preparada na hora, massa artesanal fermentada por 48h.</p>
-      <div class="menu-tabs">
-        <button class="tab active" onclick="filterMenu('todas',this)">Todas</button>
-        <button class="tab" onclick="filterMenu('classicas',this)">Clássicas</button>
-        <button class="tab" onclick="filterMenu('especiais',this)">Especiais</button>
-        <button class="tab" onclick="filterMenu('doces',this)">Doces</button>
-      </div>
-      <div class="menu-grid" id="menuGrid"></div>
-    </div>
-  </section>
-</div>
-
-<!-- ====== FAZER PEDIDO ====== -->
-<div class="page" id="page-pedido">
-  <section id="sec-pedido">
-    <div class="section-wrap">
-      <div class="section-tag">— Pedido Online —</div>
-      <h2 class="section-title">Monte Seu Pedido</h2>
-      <p class="section-sub">Entrega em até 45 min ou retire no balcão com 10% de desconto.</p>
-      <div class="order-grid">
+  <!-- ====== HOME ====== -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-grid">
         <div>
-          <div class="menu-tabs" style="margin-bottom:1.5rem">
-            <button class="tab active" onclick="filterMenu('todas',this,'order')">Todas</button>
-            <button class="tab" onclick="filterMenu('classicas',this,'order')">Clássicas</button>
-            <button class="tab" onclick="filterMenu('especiais',this,'order')">Especiais</button>
+          <div class="hero-badge">⭐ Eleita a melhor pizzaria 2024</div>
+          <h1>A Arte da Pizza <em>Napolitana</em> Verdadeira</h1>
+          <p>Massa fermentada por 48 horas, molho San Marzano importado e forno a lenha a 485°C.</p>
+          <div class="hero-cta">
+            <button class="btn-primary" onclick="showPage('pedido')">Fazer Pedido Online</button>
+            <button class="btn-outline" onclick="showPage('menu')">Ver Cardápio</button>
           </div>
-          <div class="menu-grid" id="orderGrid"></div>
-          <hr class="form-divider" style="margin:2rem 0">
-          <div class="section-tag" style="margin-bottom:1rem">— Dados de entrega —</div>
-          <div class="form-grid">
-            <div class="form-group"><label>Nome completo</label><input type="text" placeholder="João Silva" id="f-nome"></div>
-            <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(34) 9 9999-9999" id="f-tel"></div>
-            <div class="form-group full"><label>Endereço</label><input type="text" placeholder="Rua das Palmeiras, 123 — Uberaba, MG" id="f-end"></div>
-            <div class="form-group"><label>Complemento</label><input type="text" placeholder="Apto, bloco..." id="f-comp"></div>
-            <div class="form-group">
-              <label>Pagamento</label>
-              <select id="f-pag">
-                <option>Cartão de crédito</option>
-                <option>Cartão de débito</option>
-                <option>PIX</option>
-                <option>Dinheiro</option>
-              </select>
+        </div>
+        <div class="hero-visual">
+          <div class="pizza-card-hero">
+            <div class="pizza-emoji">🍕</div>
+            <div class="pizza-info">
+              <h3>Margherita D.O.P.</h3>
+              <p>Tomate San Marzano · Mozzarella di bufala</p>
             </div>
-            <div class="form-group full">
-              <label>Tipo de entrega</label>
-              <div class="radio-group">
-                <label class="radio-opt"><input type="radio" name="tipo" value="entrega" checked> Entrega em casa</label>
-                <label class="radio-opt"><input type="radio" name="tipo" value="retirada"> Retirar no local (–10%)</label>
+            <div class="pizza-price">R$ 72</div>
+          </div>
+          <div class="pizza-card-hero">
+            <div class="pizza-emoji">🔥</div>
+            <div class="pizza-info">
+              <h3>Diavola Speciale</h3>
+              <p>Salame picante · Pepperoni · Pimenta</p>
+            </div>
+            <div class="pizza-price">R$ 84</div>
+          </div>
+          <div class="pizza-card-hero">
+            <div class="pizza-emoji">🌿</div>
+            <div class="pizza-info">
+              <h3>Funghi al Tartufo</h3>
+              <p>Cogumelos porcini · Óleo de trufas</p>
+            </div>
+            <div class="pizza-price">R$ 96</div>
+          </div>
+          <div class="stats-row">
+            <div class="stat">
+              <div class="stat-num">4.9</div>
+              <div class="stat-label">Avaliação</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">12k</div>
+              <div class="stat-label">Clientes</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">18</div>
+              <div class="stat-label">Min entrega</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== CARDÁPIO ====== -->
+  <div class="page" id="page-menu">
+    <section id="sec-menu">
+      <div class="section-wrap">
+        <div class="section-tag">— Cardápio —</div>
+        <h2 class="section-title">Nossas Criações</h2>
+        <p class="section-sub">Toda pizza preparada na hora, massa artesanal fermentada por 48h.</p>
+        <div class="menu-tabs">
+          <button class="tab active" onclick="filterMenu('todas',this)">Todas</button>
+          <button class="tab" onclick="filterMenu('classicas',this)">Clássicas</button>
+          <button class="tab" onclick="filterMenu('especiais',this)">Especiais</button>
+          <button class="tab" onclick="filterMenu('doces',this)">Doces</button>
+        </div>
+        <div class="menu-grid" id="menuGrid"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== FAZER PEDIDO ====== -->
+  <div class="page" id="page-pedido">
+    <section id="sec-pedido">
+      <div class="section-wrap">
+        <div class="section-tag">— Pedido Online —</div>
+        <h2 class="section-title">Monte Seu Pedido</h2>
+        <p class="section-sub">Entrega em até 45 min ou retire no balcão com 10% de desconto.</p>
+        <div class="order-grid">
+          <div>
+            <div class="menu-tabs" style="margin-bottom:1.5rem">
+              <button class="tab active" onclick="filterMenu('todas',this,'order')">Todas</button>
+              <button class="tab" onclick="filterMenu('classicas',this,'order')">Clássicas</button>
+              <button class="tab" onclick="filterMenu('especiais',this,'order')">Especiais</button>
+            </div>
+            <div class="menu-grid" id="orderGrid"></div>
+            <hr class="form-divider" style="margin:2rem 0">
+            <div class="section-tag" style="margin-bottom:1rem">— Dados de entrega —</div>
+            <div class="form-grid">
+              <div class="form-group"><label>Nome completo</label><input type="text" placeholder="João Silva"
+                  id="f-nome"></div>
+              <div class="form-group"><label>Telefone</label><input type="tel" placeholder="(34) 9 9999-9999"
+                  id="f-tel"></div>
+              <div class="form-group full"><label>Endereço</label><input type="text"
+                  placeholder="Rua das Palmeiras, 123 — Uberaba, MG" id="f-end"></div>
+              <div class="form-group"><label>Complemento</label><input type="text" placeholder="Apto, bloco..."
+                  id="f-comp"></div>
+              <div class="form-group">
+                <label>Pagamento</label>
+                <select id="f-pag">
+                  <option>Cartão de crédito</option>
+                  <option>Cartão de débito</option>
+                  <option>PIX</option>
+                  <option>Dinheiro</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Tipo de entrega</label>
+                <div class="radio-group">
+                  <label class="radio-opt"><input type="radio" name="tipo" value="entrega" checked> Entrega em
+                    casa</label>
+                  <label class="radio-opt"><input type="radio" name="tipo" value="retirada"> Retirar no local
+                    (–10%)</label>
+                </div>
+              </div>
+              <div class="form-group full"><label>Observações</label><textarea
+                  placeholder="Sem cebola, bem assada, borda recheada..."></textarea></div>
+            </div>
+          </div>
+          <div>
+            <div class="cart-panel">
+              <div class="cart-title">Seu Pedido <span class="cart-count" id="cartCount">0</span></div>
+              <div id="cartItems">
+                <div class="empty-cart"><span class="ec-icon">🍕</span>Adicione pizzas ao carrinho</div>
+              </div>
+              <div class="cart-total" id="cartTotal" style="display:none">
+                <div class="total-row"><span>Subtotal</span><span id="subtotal">R$ 0</span></div>
+                <div class="total-row"><span>Desconto</span><span id="desconto" style="color:var(--green)">—</span>
+                </div>
+                <div class="total-row"><span>Entrega</span><span id="frete">R$ 6,00</span></div>
+                <div class="total-final"><span>Total</span><span id="total">R$ 0</span></div>
+                <button class="checkout-btn" id="checkoutBtn" onclick="finalizarPedido()">Finalizar Pedido →</button>
               </div>
             </div>
-            <div class="form-group full"><label>Observações</label><textarea placeholder="Sem cebola, bem assada, borda recheada..."></textarea></div>
           </div>
         </div>
-        <div>
-          <div class="cart-panel">
-            <div class="cart-title">Seu Pedido <span class="cart-count" id="cartCount">0</span></div>
-            <div id="cartItems"><div class="empty-cart"><span class="ec-icon">🍕</span>Adicione pizzas ao carrinho</div></div>
-            <div class="cart-total" id="cartTotal" style="display:none">
-              <div class="total-row"><span>Subtotal</span><span id="subtotal">R$ 0</span></div>
-              <div class="total-row"><span>Desconto</span><span id="desconto" style="color:var(--green)">—</span></div>
-              <div class="total-row"><span>Entrega</span><span id="frete">R$ 6,00</span></div>
-              <div class="total-final"><span>Total</span><span id="total">R$ 0</span></div>
-              <button class="checkout-btn" id="checkoutBtn" onclick="finalizarPedido()">Finalizar Pedido →</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== MEUS PEDIDOS ====== -->
+  <div class="page" id="page-pedidos-lista">
+    <section id="sec-pedidos-lista">
+      <div class="section-wrap">
+        <div class="section-tag">— Gestão —</div>
+        <h2 class="section-title">Pedidos Cadastrados</h2>
+        <p class="section-sub">Todos os pedidos recebidos, com status atualizado em tempo real.</p>
+
+        <!-- Resumo rápido -->
+        <div class="pedidos-resumo">
+          <div class="resumo-card">
+            <div class="resumo-num" id="res-total">—</div>
+            <div class="resumo-lbl">Total</div>
+          </div>
+          <div class="resumo-card">
+            <div class="resumo-num" id="res-prep" style="color:var(--gold)">—</div>
+            <div class="resumo-lbl">Preparando</div>
+          </div>
+          <div class="resumo-card">
+            <div class="resumo-num" id="res-cam" style="color:var(--blue)">—</div>
+            <div class="resumo-lbl">A caminho</div>
+          </div>
+          <div class="resumo-card">
+            <div class="resumo-num" id="res-ent" style="color:var(--green)">—</div>
+            <div class="resumo-lbl">Entregues</div>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="pedidos-toolbar">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Buscar por cliente, pedido ou pizza..." id="buscaInput"
+              oninput="buscarPedidos()">
+          </div>
+          <div class="filter-tabs">
+            <button class="filter-tab active" onclick="setFiltro('todos',this)">Todos</button>
+            <button class="filter-tab" onclick="setFiltro('preparando',this)">Preparando</button>
+            <button class="filter-tab" onclick="setFiltro('a_caminho',this)">A caminho</button>
+            <button class="filter-tab" onclick="setFiltro('entregue',this)">Entregues</button>
+          </div>
+          <button class="btn-refresh" onclick="carregarPedidos()">↻ Atualizar</button>
+        </div>
+
+        <div id="listaPedidos">
+          <div class="estado-vazio">
+            <span class="spinner"></span> Carregando pedidos...
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ====== DASHBOARD ====== -->
+  <div class="page" id="page-dash">
+    <section id="sec-dash">
+      <div class="section-wrap">
+        <div class="section-tag">— Gestão —</div>
+        <h2 class="section-title">Dashboard Operacional</h2>
+        <p class="section-sub">Visão geral das vendas de hoje.</p>
+        <div class="dash-grid">
+          <div class="kpi">
+            <div class="kpi-label">Receita Hoje</div>
+            <div class="kpi-value" id="kpi1">—</div>
+            <div class="kpi-delta up" id="kpi1d"></div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Pedidos Hoje</div>
+            <div class="kpi-value" id="kpi2">—</div>
+            <div class="kpi-delta up" id="kpi2d"></div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Ticket Médio</div>
+            <div class="kpi-value" id="kpi3">—</div>
+            <div class="kpi-delta up" id="kpi3d"></div>
+          </div>
+          <div class="kpi">
+            <div class="kpi-label">Total de Pedidos</div>
+            <div class="kpi-value" id="kpi4">—</div>
+            <div class="kpi-delta up"></div>
+          </div>
+        </div>
+        <div class="chart-row">
+          <div class="chart-box">
+            <div class="chart-label">Vendas por hora — hoje</div>
+            <div class="bars" id="hourlyChart"></div>
+          </div>
+          <div class="chart-box">
+            <div class="chart-label">Pizzas mais vendidas</div>
+            <div class="donut-wrap">
+              <div class="donut">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="16" />
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#C8311A" stroke-width="16"
+                    stroke-dasharray="120 182" stroke-linecap="round" />
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#C9922A" stroke-width="16"
+                    stroke-dasharray="72 230" stroke-dashoffset="-122" stroke-linecap="round" />
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#4CAF7D" stroke-width="16"
+                    stroke-dasharray="50 252" stroke-dashoffset="-194" stroke-linecap="round" />
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="#87ADFA" stroke-width="16"
+                    stroke-dasharray="40 262" stroke-dashoffset="-244" stroke-linecap="round" />
+                </svg>
+                <div class="donut-center">
+                  <div class="donut-pct" id="donutTotal">—</div>
+                  <div class="donut-sub">pizzas<br>esse mês</div>
+                </div>
+              </div>
+              <div class="legend" style="max-width:200px">
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#C8311A"></div><span
+                    class="legend-lbl">Margherita</span><span class="legend-pct">40%</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#C9922A"></div><span class="legend-lbl">Diavola</span><span
+                    class="legend-pct">24%</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#4CAF7D"></div><span class="legend-lbl">Funghi</span><span
+                    class="legend-pct">17%</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background:#87ADFA"></div><span class="legend-lbl">Outras</span><span
+                    class="legend-pct">19%</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 
-<!-- ====== MEUS PEDIDOS ====== -->
-<div class="page" id="page-pedidos-lista">
-  <section id="sec-pedidos-lista">
-    <div class="section-wrap">
-      <div class="section-tag">— Gestão —</div>
-      <h2 class="section-title">Pedidos Cadastrados</h2>
-      <p class="section-sub">Todos os pedidos recebidos, com status atualizado em tempo real.</p>
+  <!-- TOAST -->
+  <div class="toast" id="toast"><span id="toastMsg"></span></div>
 
-      <!-- Resumo rápido -->
-      <div class="pedidos-resumo">
-        <div class="resumo-card"><div class="resumo-num" id="res-total">—</div><div class="resumo-lbl">Total</div></div>
-        <div class="resumo-card"><div class="resumo-num" id="res-prep" style="color:var(--gold)">—</div><div class="resumo-lbl">Preparando</div></div>
-        <div class="resumo-card"><div class="resumo-num" id="res-cam" style="color:var(--blue)">—</div><div class="resumo-lbl">A caminho</div></div>
-        <div class="resumo-card"><div class="resumo-num" id="res-ent" style="color:var(--green)">—</div><div class="resumo-lbl">Entregues</div></div>
-      </div>
+  <script>
+    const API = '/api';
+    let cart = [];
+    let filtroAtual = 'todos';
+    let apiOnline = false;
 
-      <!-- Toolbar -->
-      <div class="pedidos-toolbar">
-        <div class="search-input-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" placeholder="Buscar por cliente, pedido ou pizza..." id="buscaInput" oninput="buscarPedidos()">
-        </div>
-        <div class="filter-tabs">
-          <button class="filter-tab active" onclick="setFiltro('todos',this)">Todos</button>
-          <button class="filter-tab" onclick="setFiltro('preparando',this)">Preparando</button>
-          <button class="filter-tab" onclick="setFiltro('a_caminho',this)">A caminho</button>
-          <button class="filter-tab" onclick="setFiltro('entregue',this)">Entregues</button>
-        </div>
-        <button class="btn-refresh" onclick="carregarPedidos()">↻ Atualizar</button>
-      </div>
+    // ---- CARDÁPIO ----
+    const pizzas = [
+      { id: 1, nome: 'Margherita D.O.P.', desc: 'Molho San Marzano, mozzarella di bufala, manjericão fresco', preco: 72, cat: 'classicas', badge: '', emoji: '🍕', tamanhos: ['P', 'M', 'G'] },
+      { id: 2, nome: 'Diavola Speciale', desc: 'Salame picante, pepperoni, pimentão vermelho, pimenta calabresa', preco: 84, cat: 'especiais', badge: 'Picante', emoji: '🔥', tamanhos: ['M', 'G', 'GG'] },
+      { id: 3, nome: 'Quattro Formaggi', desc: 'Mozzarella, gorgonzola, parmesão, provolone defumado, mel', preco: 88, cat: 'especiais', badge: '', emoji: '🧀', tamanhos: ['P', 'M', 'G'] },
+      { id: 4, nome: 'Funghi al Tartufo', desc: 'Porcini, shiitake, óleo de trufas negras, creme de ricota', preco: 96, cat: 'especiais', badge: 'Chef', emoji: '🌿', tamanhos: ['M', 'G'] },
+      { id: 5, nome: 'Marinara Classica', desc: 'Molho San Marzano, alho confitado, orégano, azeite', preco: 58, cat: 'classicas', badge: 'Vegana', emoji: '🍅', tamanhos: ['P', 'M', 'G', 'GG'] },
+      { id: 6, nome: 'Prosciutto e Rúcula', desc: 'Presunto de parma 24 meses, rúcula, parmesão, tomate sweet', preco: 92, cat: 'especiais', badge: '', emoji: '🥗', tamanhos: ['M', 'G'] },
+      { id: 7, nome: 'Calabresa Artesanal', desc: 'Calabresa defumada, cebola roxa caramelizada, azeitonas', preco: 76, cat: 'classicas', badge: '', emoji: '🌶️', tamanhos: ['P', 'M', 'G', 'GG'] },
+      { id: 8, nome: 'Nutella & Morango', desc: 'Nutella, morangos frescos, banana, granola, chantilly', preco: 68, cat: 'doces', badge: 'Doce', emoji: '🍓', tamanhos: ['P', 'M'] },
+      { id: 9, nome: 'Banana Caramelizada', desc: 'Banana prata caramelizada, doce de leite, coco, canela', preco: 62, cat: 'doces', badge: 'Doce', emoji: '🍌', tamanhos: ['P', 'M'] },
+    ];
 
-      <div id="listaPedidos">
-        <div class="estado-vazio">
-          <span class="spinner"></span> Carregando pedidos...
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- ====== DASHBOARD ====== -->
-<div class="page" id="page-dash">
-  <section id="sec-dash">
-    <div class="section-wrap">
-      <div class="section-tag">— Gestão —</div>
-      <h2 class="section-title">Dashboard Operacional</h2>
-      <p class="section-sub">Visão geral das vendas de hoje.</p>
-      <div class="dash-grid">
-        <div class="kpi"><div class="kpi-label">Receita Hoje</div><div class="kpi-value" id="kpi1">—</div><div class="kpi-delta up" id="kpi1d"></div></div>
-        <div class="kpi"><div class="kpi-label">Pedidos Hoje</div><div class="kpi-value" id="kpi2">—</div><div class="kpi-delta up" id="kpi2d"></div></div>
-        <div class="kpi"><div class="kpi-label">Ticket Médio</div><div class="kpi-value" id="kpi3">—</div><div class="kpi-delta up" id="kpi3d"></div></div>
-        <div class="kpi"><div class="kpi-label">Total de Pedidos</div><div class="kpi-value" id="kpi4">—</div><div class="kpi-delta up"></div></div>
-      </div>
-      <div class="chart-row">
-        <div class="chart-box">
-          <div class="chart-label">Vendas por hora — hoje</div>
-          <div class="bars" id="hourlyChart"></div>
-        </div>
-        <div class="chart-box">
-          <div class="chart-label">Pizzas mais vendidas</div>
-          <div class="donut-wrap">
-            <div class="donut">
-              <svg width="120" height="120" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="48" fill="none" stroke="rgba(255,255,255,.05)" stroke-width="16"/>
-                <circle cx="60" cy="60" r="48" fill="none" stroke="#C8311A" stroke-width="16" stroke-dasharray="120 182" stroke-linecap="round"/>
-                <circle cx="60" cy="60" r="48" fill="none" stroke="#C9922A" stroke-width="16" stroke-dasharray="72 230" stroke-dashoffset="-122" stroke-linecap="round"/>
-                <circle cx="60" cy="60" r="48" fill="none" stroke="#4CAF7D" stroke-width="16" stroke-dasharray="50 252" stroke-dashoffset="-194" stroke-linecap="round"/>
-                <circle cx="60" cy="60" r="48" fill="none" stroke="#87ADFA" stroke-width="16" stroke-dasharray="40 262" stroke-dashoffset="-244" stroke-linecap="round"/>
-              </svg>
-              <div class="donut-center"><div class="donut-pct" id="donutTotal">—</div><div class="donut-sub">pizzas<br>esse mês</div></div>
-            </div>
-            <div class="legend" style="max-width:200px">
-              <div class="legend-item"><div class="legend-dot" style="background:#C8311A"></div><span class="legend-lbl">Margherita</span><span class="legend-pct">40%</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:#C9922A"></div><span class="legend-lbl">Diavola</span><span class="legend-pct">24%</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:#4CAF7D"></div><span class="legend-lbl">Funghi</span><span class="legend-pct">17%</span></div>
-              <div class="legend-item"><div class="legend-dot" style="background:#87ADFA"></div><span class="legend-lbl">Outras</span><span class="legend-pct">19%</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"><span id="toastMsg"></span></div>
-
-<script>
-const API = 'http://localhost:3001/api';
-let cart = [];
-let filtroAtual = 'todos';
-let apiOnline = false;
-
-// ---- CARDÁPIO ----
-const pizzas = [
-  {id:1,nome:'Margherita D.O.P.',desc:'Molho San Marzano, mozzarella di bufala, manjericão fresco',preco:72,cat:'classicas',badge:'',emoji:'🍕',tamanhos:['P','M','G']},
-  {id:2,nome:'Diavola Speciale',desc:'Salame picante, pepperoni, pimentão vermelho, pimenta calabresa',preco:84,cat:'especiais',badge:'Picante',emoji:'🔥',tamanhos:['M','G','GG']},
-  {id:3,nome:'Quattro Formaggi',desc:'Mozzarella, gorgonzola, parmesão, provolone defumado, mel',preco:88,cat:'especiais',badge:'',emoji:'🧀',tamanhos:['P','M','G']},
-  {id:4,nome:'Funghi al Tartufo',desc:'Porcini, shiitake, óleo de trufas negras, creme de ricota',preco:96,cat:'especiais',badge:'Chef',emoji:'🌿',tamanhos:['M','G']},
-  {id:5,nome:'Marinara Classica',desc:'Molho San Marzano, alho confitado, orégano, azeite',preco:58,cat:'classicas',badge:'Vegana',emoji:'🍅',tamanhos:['P','M','G','GG']},
-  {id:6,nome:'Prosciutto e Rúcula',desc:'Presunto de parma 24 meses, rúcula, parmesão, tomate sweet',preco:92,cat:'especiais',badge:'',emoji:'🥗',tamanhos:['M','G']},
-  {id:7,nome:'Calabresa Artesanal',desc:'Calabresa defumada, cebola roxa caramelizada, azeitonas',preco:76,cat:'classicas',badge:'',emoji:'🌶️',tamanhos:['P','M','G','GG']},
-  {id:8,nome:'Nutella & Morango',desc:'Nutella, morangos frescos, banana, granola, chantilly',preco:68,cat:'doces',badge:'Doce',emoji:'🍓',tamanhos:['P','M']},
-  {id:9,nome:'Banana Caramelizada',desc:'Banana prata caramelizada, doce de leite, coco, canela',preco:62,cat:'doces',badge:'Doce',emoji:'🍌',tamanhos:['P','M']},
-];
-
-function renderPizzas(containerId, filter='todas') {
-  const grid = document.getElementById(containerId);
-  if (!grid) return;
-  const lista = filter==='todas' ? pizzas : pizzas.filter(p=>p.cat===filter);
-  grid.innerHTML = lista.map(p=>`
+    function renderPizzas(containerId, filter = 'todas') {
+      const grid = document.getElementById(containerId);
+      if (!grid) return;
+      const lista = filter === 'todas' ? pizzas : pizzas.filter(p => p.cat === filter);
+      grid.innerHTML = lista.map(p => `
     <div class="menu-card" onclick="addToCart(${p.id})">
       <div class="menu-card-top">
         <div style="font-size:1.8rem;margin-bottom:8px">${p.emoji}</div>
-        ${p.badge?`<span class="menu-badge ${p.cat==='doces'?'gold':''}">${p.badge}</span>`:'<span></span>'}
+        ${p.badge ? `<span class="menu-badge ${p.cat === 'doces' ? 'gold' : ''}">${p.badge}</span>` : '<span></span>'}
       </div>
       <div class="menu-name">${p.nome}</div>
       <div class="menu-desc">${p.desc}</div>
-      <div class="menu-sizes">${p.tamanhos.map(s=>`<span class="size-tag">${s}</span>`).join('')}</div>
+      <div class="menu-sizes">${p.tamanhos.map(s => `<span class="size-tag">${s}</span>`).join('')}</div>
       <div class="menu-footer">
         <div class="menu-price">R$ ${p.preco}</div>
         <button class="add-btn" onclick="event.stopPropagation();addToCart(${p.id})">+</button>
       </div>
     </div>`).join('');
-}
+    }
 
-function filterMenu(cat, btn, ctx='menu') {
-  btn.closest('.menu-tabs').querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  renderPizzas(ctx==='order'?'orderGrid':'menuGrid', cat);
-}
+    function filterMenu(cat, btn, ctx = 'menu') {
+      btn.closest('.menu-tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      renderPizzas(ctx === 'order' ? 'orderGrid' : 'menuGrid', cat);
+    }
 
-// ---- CARRINHO ----
-function addToCart(id) {
-  const p = pizzas.find(x=>x.id===id);
-  const ex = cart.find(x=>x.id===id);
-  if (ex) ex.qty++; else cart.push({...p,qty:1});
-  renderCart();
-  showToast(`🍕 ${p.nome} adicionada!`);
-}
+    // ---- CARRINHO ----
+    function addToCart(id) {
+      const p = pizzas.find(x => x.id === id);
+      const ex = cart.find(x => x.id === id);
+      if (ex) ex.qty++; else cart.push({ ...p, qty: 1 });
+      renderCart();
+      showToast(`🍕 ${p.nome} adicionada!`);
+    }
 
-function changeQty(id, d) {
-  const item = cart.find(x=>x.id===id);
-  if (!item) return;
-  item.qty += d;
-  if (item.qty<=0) cart = cart.filter(x=>x.id!==id);
-  renderCart();
-}
+    function changeQty(id, d) {
+      const item = cart.find(x => x.id === id);
+      if (!item) return;
+      item.qty += d;
+      if (item.qty <= 0) cart = cart.filter(x => x.id !== id);
+      renderCart();
+    }
 
-function renderCart() {
-  const tipo = document.querySelector('input[name=tipo]:checked')?.value || 'entrega';
-  const el   = document.getElementById('cartItems');
-  const tot  = document.getElementById('cartTotal');
-  document.getElementById('cartCount').textContent = cart.reduce((s,c)=>s+c.qty,0);
+    function renderCart() {
+      const tipo = document.querySelector('input[name=tipo]:checked')?.value || 'entrega';
+      const el = document.getElementById('cartItems');
+      const tot = document.getElementById('cartTotal');
+      document.getElementById('cartCount').textContent = cart.reduce((s, c) => s + c.qty, 0);
 
-  if (!cart.length) {
-    el.innerHTML = '<div class="empty-cart"><span class="ec-icon">🍕</span>Adicione pizzas ao carrinho</div>';
-    tot.style.display='none'; return;
-  }
-  el.innerHTML = cart.map(c=>`
+      if (!cart.length) {
+        el.innerHTML = '<div class="empty-cart"><span class="ec-icon">🍕</span>Adicione pizzas ao carrinho</div>';
+        tot.style.display = 'none'; return;
+      }
+      el.innerHTML = cart.map(c => `
     <div class="cart-item">
       <div class="cart-item-emoji">${c.emoji}</div>
       <div class="cart-item-info">
@@ -567,103 +1756,103 @@ function renderCart() {
       </div>
     </div>`).join('');
 
-  const sub  = cart.reduce((s,c)=>s+c.preco*c.qty,0);
-  const desc = tipo==='retirada' ? Math.round(sub*0.1) : 0;
-  const frete= tipo==='retirada' ? 0 : 6;
+      const sub = cart.reduce((s, c) => s + c.preco * c.qty, 0);
+      const desc = tipo === 'retirada' ? Math.round(sub * 0.1) : 0;
+      const frete = tipo === 'retirada' ? 0 : 6;
 
-  document.getElementById('subtotal').textContent = `R$ ${sub},00`;
-  document.getElementById('desconto').textContent = desc ? `−R$ ${desc},00` : '—';
-  document.getElementById('frete').textContent    = frete ? `R$ ${frete},00` : 'Grátis';
-  document.getElementById('total').textContent    = `R$ ${sub-desc+frete},00`;
-  tot.style.display='block';
-}
+      document.getElementById('subtotal').textContent = `R$ ${sub},00`;
+      document.getElementById('desconto').textContent = desc ? `−R$ ${desc},00` : '—';
+      document.getElementById('frete').textContent = frete ? `R$ ${frete},00` : 'Grátis';
+      document.getElementById('total').textContent = `R$ ${sub - desc + frete},00`;
+      tot.style.display = 'block';
+    }
 
-// Atualiza total ao mudar tipo de entrega
-document.querySelectorAll('input[name=tipo]').forEach(r=>r.addEventListener('change', renderCart));
+    // Atualiza total ao mudar tipo de entrega
+    document.querySelectorAll('input[name=tipo]').forEach(r => r.addEventListener('change', renderCart));
 
-// ---- FINALIZAR PEDIDO ----
-async function finalizarPedido() {
-  const nome = document.getElementById('f-nome').value.trim();
-  if (!cart.length) { showToast('⚠️ Carrinho vazio!'); return; }
-  if (!nome)        { showToast('⚠️ Preencha seu nome!'); return; }
+    // ---- FINALIZAR PEDIDO ----
+    async function finalizarPedido() {
+      const nome = document.getElementById('f-nome').value.trim();
+      if (!cart.length) { showToast('⚠️ Carrinho vazio!'); return; }
+      if (!nome) { showToast('⚠️ Preencha seu nome!'); return; }
 
-  const btn = document.getElementById('checkoutBtn');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
+      const btn = document.getElementById('checkoutBtn');
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
 
-  const tipo = document.querySelector('input[name=tipo]:checked').value;
+      const tipo = document.querySelector('input[name=tipo]:checked').value;
 
-  const payload = {
-    cliente: {
-      nome,
-      telefone:    document.getElementById('f-tel').value,
-      endereco:    document.getElementById('f-end').value,
-      complemento: document.getElementById('f-comp').value,
-    },
-    itens: cart.map(c=>({id:c.id, nome:c.nome, emoji:c.emoji, preco:c.preco, qty:c.qty})),
-    pagamento: document.getElementById('f-pag').value,
-    tipo,
-    observacoes: document.querySelector('textarea')?.value || '',
-  };
+      const payload = {
+        cliente: {
+          nome,
+          telefone: document.getElementById('f-tel').value,
+          endereco: document.getElementById('f-end').value,
+          complemento: document.getElementById('f-comp').value,
+        },
+        itens: cart.map(c => ({ id: c.id, nome: c.nome, emoji: c.emoji, preco: c.preco, qty: c.qty })),
+        pagamento: document.getElementById('f-pag').value,
+        tipo,
+        observacoes: document.querySelector('textarea')?.value || '',
+      };
 
-  try {
-    const res = await fetch(`${API}/pedidos`, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) throw new Error('Erro ao salvar');
-    const pedido = await res.json();
-    showToast(`✅ Pedido ${pedido.id} confirmado! ~35 min`);
-    cart = [];
-    renderCart();
-    btn.disabled = false;
-    btn.textContent = 'Finalizar Pedido →';
-    setTimeout(()=>showPage('pedidos-lista'), 1800);
-  } catch(e) {
-    showToast('❌ Erro: servidor offline. Verifique o backend.');
-    btn.disabled = false;
-    btn.textContent = 'Finalizar Pedido →';
-  }
-}
+      try {
+        const res = await fetch(`${API}/pedidos`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) throw new Error('Erro ao salvar');
+        const pedido = await res.json();
+        showToast(`✅ Pedido ${pedido.id} confirmado! ~35 min`);
+        cart = [];
+        renderCart();
+        btn.disabled = false;
+        btn.textContent = 'Finalizar Pedido →';
+        setTimeout(() => showPage('pedidos-lista'), 1800);
+      } catch (e) {
+        showToast('❌ Erro: servidor offline. Verifique o backend.');
+        btn.disabled = false;
+        btn.textContent = 'Finalizar Pedido →';
+      }
+    }
 
-// ---- LISTA DE PEDIDOS ----
-async function carregarPedidos() {
-  const lista = document.getElementById('listaPedidos');
-  lista.innerHTML = '<div class="estado-vazio"><span class="spinner"></span> Buscando pedidos...</div>';
+    // ---- LISTA DE PEDIDOS ----
+    async function carregarPedidos() {
+      const lista = document.getElementById('listaPedidos');
+      lista.innerHTML = '<div class="estado-vazio"><span class="spinner"></span> Buscando pedidos...</div>';
 
-  const busca = document.getElementById('buscaInput')?.value || '';
-  const params = new URLSearchParams();
-  if (filtroAtual !== 'todos') params.set('status', filtroAtual);
-  if (busca) params.set('busca', busca);
+      const busca = document.getElementById('buscaInput')?.value || '';
+      const params = new URLSearchParams();
+      if (filtroAtual !== 'todos') params.set('status', filtroAtual);
+      if (busca) params.set('busca', busca);
 
-  try {
-    const res  = await fetch(`${API}/pedidos?${params}`);
-    const data = await res.json();
-    renderListaPedidos(data.pedidos);
-    atualizarResumo();
-  } catch(e) {
-    lista.innerHTML = `
+      try {
+        const res = await fetch(`${API}/pedidos?${params}`);
+        const data = await res.json();
+        renderListaPedidos(data.pedidos);
+        atualizarResumo();
+      } catch (e) {
+        lista.innerHTML = `
       <div class="estado-vazio">
         <span class="icon">⚠️</span>
         <h3>Backend offline</h3>
         <p style="margin-top:.5rem;font-size:.85rem">Inicie o servidor: <code style="background:rgba(255,255,255,.06);padding:2px 8px;border-radius:3px">node server.js</code></p>
       </div>`;
-  }
-}
+      }
+    }
 
-function renderListaPedidos(pedidos) {
-  const lista = document.getElementById('listaPedidos');
-  if (!pedidos.length) {
-    lista.innerHTML = `<div class="estado-vazio"><span class="icon">📋</span><h3>Nenhum pedido encontrado</h3><p style="margin-top:.5rem">Tente outro filtro ou faça um pedido.</p></div>`;
-    return;
-  }
+    function renderListaPedidos(pedidos) {
+      const lista = document.getElementById('listaPedidos');
+      if (!pedidos.length) {
+        lista.innerHTML = `<div class="estado-vazio"><span class="icon">📋</span><h3>Nenhum pedido encontrado</h3><p style="margin-top:.5rem">Tente outro filtro ou faça um pedido.</p></div>`;
+        return;
+      }
 
-  lista.innerHTML = `<div class="pedidos-lista">${pedidos.map(p=>{
-    const dt = new Date(p.criadoEm);
-    const hora = dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-    const data = dt.toLocaleDateString('pt-BR');
-    return `
-    <div class="pedido-card" id="card-${p.id.replace('#','')}">
+      lista.innerHTML = `<div class="pedidos-lista">${pedidos.map(p => {
+        const dt = new Date(p.criadoEm);
+        const hora = dt.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        const data = dt.toLocaleDateString('pt-BR');
+        return `
+    <div class="pedido-card" id="card-${p.id.replace('#', '')}">
       <div class="pedido-card-top">
         <div>
           <div class="pedido-id">${p.id}</div>
@@ -671,7 +1860,7 @@ function renderListaPedidos(pedidos) {
         </div>
         <div class="pedido-cliente">
           <div class="pedido-nome">👤 ${p.cliente.nome}</div>
-          <div class="pedido-tel">${p.cliente.telefone || 'Sem telefone'} · ${p.tipo==='retirada'?'Retirada':'Entrega'}</div>
+          <div class="pedido-tel">${p.cliente.telefone || 'Sem telefone'} · ${p.tipo === 'retirada' ? 'Retirada' : 'Entrega'}</div>
         </div>
         <div style="text-align:right">
           <div class="pedido-total-big">R$ ${p.total},00</div>
@@ -679,7 +1868,7 @@ function renderListaPedidos(pedidos) {
         </div>
       </div>
       <div class="pedido-itens">
-        ${p.itens.map(i=>`
+        ${p.itens.map(i => `
           <div class="item-pill">
             <span class="item-pill-qty">${i.qty}</span>
             ${i.emoji} ${i.nome}
@@ -687,131 +1876,132 @@ function renderListaPedidos(pedidos) {
       </div>
       <div class="pedido-card-footer">
         <div class="pedido-meta">💳 <strong>${p.pagamento}</strong></div>
-        <div class="pedido-meta">📦 Subtotal: <strong>R$ ${p.subtotal},00</strong>${p.desconto?` · Desconto: <strong style="color:var(--green)">−R$ ${p.desconto},00</strong>`:''}</div>
-        ${p.observacoes?`<div class="pedido-meta">💬 <strong>${p.observacoes}</strong></div>`:''}
-        ${p.cliente.endereco?`<div class="pedido-meta">📍 <strong>${p.cliente.endereco}${p.cliente.complemento?' — '+p.cliente.complemento:''}</strong></div>`:''}
+        <div class="pedido-meta">📦 Subtotal: <strong>R$ ${p.subtotal},00</strong>${p.desconto ? ` · Desconto: <strong style="color:var(--green)">−R$ ${p.desconto},00</strong>` : ''}</div>
+        ${p.observacoes ? `<div class="pedido-meta">💬 <strong>${p.observacoes}</strong></div>` : ''}
+        ${p.cliente.endereco ? `<div class="pedido-meta">📍 <strong>${p.cliente.endereco}${p.cliente.complemento ? ' — ' + p.cliente.complemento : ''}</strong></div>` : ''}
         <div class="spacer"></div>
         <select class="status-select" onchange="atualizarStatus('${p.id}',this.value)">
-          <option value="preparando"  ${p.status==='preparando'?'selected':''}>🔥 Preparando</option>
-          <option value="a_caminho"   ${p.status==='a_caminho'?'selected':''}>🛵 A caminho</option>
-          <option value="entregue"    ${p.status==='entregue'?'selected':''}>✅ Entregue</option>
-          <option value="cancelado"   ${p.status==='cancelado'?'selected':''}>❌ Cancelado</option>
+          <option value="preparando"  ${p.status === 'preparando' ? 'selected' : ''}>🔥 Preparando</option>
+          <option value="a_caminho"   ${p.status === 'a_caminho' ? 'selected' : ''}>🛵 A caminho</option>
+          <option value="entregue"    ${p.status === 'entregue' ? 'selected' : ''}>✅ Entregue</option>
+          <option value="cancelado"   ${p.status === 'cancelado' ? 'selected' : ''}>❌ Cancelado</option>
         </select>
       </div>
     </div>`;
-  }).join('')}</div>`;
-}
+      }).join('')}</div>`;
+    }
 
-async function atualizarStatus(id, status) {
-  try {
-    await fetch(`${API}/pedidos/${encodeURIComponent(id)}/status`, {
-      method:'PATCH', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({status})
-    });
-    showToast(`✅ Status atualizado para: ${labelStatus(status)}`);
-    setTimeout(carregarPedidos, 600);
-  } catch(e) {
-    showToast('❌ Erro ao atualizar status');
-  }
-}
+    async function atualizarStatus(id, status) {
+      try {
+        await fetch(`${API}/pedidos/${encodeURIComponent(id)}/status`, {
+          method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        showToast(`✅ Status atualizado para: ${labelStatus(status)}`);
+        setTimeout(carregarPedidos, 600);
+      } catch (e) {
+        showToast('❌ Erro ao atualizar status');
+      }
+    }
 
-async function atualizarResumo() {
-  try {
-    const res  = await fetch(`${API}/stats`);
-    const data = await res.json();
-    document.getElementById('res-total').textContent = data.total || 0;
-    document.getElementById('res-prep').textContent  = data.porStatus?.preparando || 0;
-    document.getElementById('res-cam').textContent   = data.porStatus?.a_caminho  || 0;
-    document.getElementById('res-ent').textContent   = data.porStatus?.entregue   || 0;
-  } catch(e) {}
-}
+    async function atualizarResumo() {
+      try {
+        const res = await fetch(`${API}/stats`);
+        const data = await res.json();
+        document.getElementById('res-total').textContent = data.total || 0;
+        document.getElementById('res-prep').textContent = data.porStatus?.preparando || 0;
+        document.getElementById('res-cam').textContent = data.porStatus?.a_caminho || 0;
+        document.getElementById('res-ent').textContent = data.porStatus?.entregue || 0;
+      } catch (e) { }
+    }
 
-function setFiltro(f, btn) {
-  filtroAtual = f;
-  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  carregarPedidos();
-}
+    function setFiltro(f, btn) {
+      filtroAtual = f;
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      carregarPedidos();
+    }
 
-function buscarPedidos() {
-  clearTimeout(window._bt);
-  window._bt = setTimeout(carregarPedidos, 400);
-}
+    function buscarPedidos() {
+      clearTimeout(window._bt);
+      window._bt = setTimeout(carregarPedidos, 400);
+    }
 
-function labelStatus(s) {
-  return {preparando:'Preparando',a_caminho:'A caminho',entregue:'Entregue',cancelado:'Cancelado'}[s] || s;
-}
+    function labelStatus(s) {
+      return { preparando: 'Preparando', a_caminho: 'A caminho', entregue: 'Entregue', cancelado: 'Cancelado' }[s] || s;
+    }
 
-// ---- DASHBOARD ----
-async function renderDashboard() {
-  try {
-    const res  = await fetch(`${API}/stats`);
-    const data = await res.json();
-    document.getElementById('kpi1').textContent = `R$ ${(data.receita||0).toLocaleString('pt-BR')}`;
-    document.getElementById('kpi1d').textContent = '▲ dados reais';
-    document.getElementById('kpi2').textContent = data.pedidos || 0;
-    document.getElementById('kpi2d').textContent = '▲ hoje';
-    document.getElementById('kpi3').textContent = `R$ ${data.ticket || 0}`;
-    document.getElementById('kpi3d').textContent = 'ticket médio';
-    document.getElementById('kpi4').textContent = data.total || 0;
-    document.getElementById('donutTotal').textContent = data.total || 0;
-  } catch(e) {
-    ['kpi1','kpi2','kpi3','kpi4'].forEach(k=>document.getElementById(k).textContent='—');
-  }
+    // ---- DASHBOARD ----
+    async function renderDashboard() {
+      try {
+        const res = await fetch(`${API}/stats`);
+        const data = await res.json();
+        document.getElementById('kpi1').textContent = `R$ ${(data.receita || 0).toLocaleString('pt-BR')}`;
+        document.getElementById('kpi1d').textContent = '▲ dados reais';
+        document.getElementById('kpi2').textContent = data.pedidos || 0;
+        document.getElementById('kpi2d').textContent = '▲ hoje';
+        document.getElementById('kpi3').textContent = `R$ ${data.ticket || 0}`;
+        document.getElementById('kpi3d').textContent = 'ticket médio';
+        document.getElementById('kpi4').textContent = data.total || 0;
+        document.getElementById('donutTotal').textContent = data.total || 0;
+      } catch (e) {
+        ['kpi1', 'kpi2', 'kpi3', 'kpi4'].forEach(k => document.getElementById(k).textContent = '—');
+      }
 
-  const hours = ['11h','12h','13h','14h','15h','16h','17h','18h','19h','20h','21h','22h'];
-  const vals  = [2,6,10,7,4,5,8,12,15,14,9,5];
-  const max   = Math.max(...vals);
-  document.getElementById('hourlyChart').innerHTML = hours.map((h,i)=>`
+      const hours = ['11h', '12h', '13h', '14h', '15h', '16h', '17h', '18h', '19h', '20h', '21h', '22h'];
+      const vals = [2, 6, 10, 7, 4, 5, 8, 12, 15, 14, 9, 5];
+      const max = Math.max(...vals);
+      document.getElementById('hourlyChart').innerHTML = hours.map((h, i) => `
     <div class="bar-col">
       <div style="flex:1;width:100%;display:flex;align-items:flex-end">
-        <div class="bar ${i>7?'red':'gold'}" style="height:${Math.round(vals[i]/max*100)}%;width:100%"></div>
+        <div class="bar ${i > 7 ? 'red' : 'gold'}" style="height:${Math.round(vals[i] / max * 100)}%;width:100%"></div>
       </div>
       <div class="bar-lbl">${h}</div>
     </div>`).join('');
-}
+    }
 
-// ---- NAVEGAÇÃO ----
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('nav ul li a').forEach(a=>a.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
-  const n = document.getElementById('nav-'+page);
-  if (n) n.classList.add('active');
-  if (page==='menu')          renderPizzas('menuGrid');
-  if (page==='pedido')        renderPizzas('orderGrid');
-  if (page==='pedidos-lista') carregarPedidos();
-  if (page==='dash')          renderDashboard();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
+    // ---- NAVEGAÇÃO ----
+    function showPage(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      const n = document.getElementById('nav-' + page);
+      if (n) n.classList.add('active');
+      if (page === 'menu') renderPizzas('menuGrid');
+      if (page === 'pedido') renderPizzas('orderGrid');
+      if (page === 'pedidos-lista') carregarPedidos();
+      if (page === 'dash') renderDashboard();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-// ---- TOAST ----
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toastMsg').textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3500);
-}
+    // ---- TOAST ----
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
 
-// ---- CHECK API STATUS ----
-async function checkApi() {
-  const badge = document.getElementById('apiBadge');
-  try {
-    await fetch(`${API}/stats`);
-    badge.className = 'api-badge online';
-    badge.innerHTML = '<span class="api-dot"></span> API online';
-    apiOnline = true;
-  } catch(e) {
-    badge.className = 'api-badge offline';
-    badge.innerHTML = '<span class="api-dot"></span> API offline';
-    apiOnline = false;
-  }
-}
+    // ---- CHECK API STATUS ----
+    async function checkApi() {
+      const badge = document.getElementById('apiBadge');
+      try {
+        await fetch(`${API}/stats`);
+        badge.className = 'api-badge online';
+        badge.innerHTML = '<span class="api-dot"></span> API online';
+        apiOnline = true;
+      } catch (e) {
+        badge.className = 'api-badge offline';
+        badge.innerHTML = '<span class="api-dot"></span> API offline';
+        apiOnline = false;
+      }
+    }
 
-// ---- INIT ----
-renderPizzas('menuGrid');
-checkApi();
-setInterval(checkApi, 10000); // checa a cada 10s
-</script>
+    // ---- INIT ----
+    renderPizzas('menuGrid');
+    checkApi();
+    setInterval(checkApi, 10000); // checa a cada 10s
+  </script>
 </body>
+
 </html>
